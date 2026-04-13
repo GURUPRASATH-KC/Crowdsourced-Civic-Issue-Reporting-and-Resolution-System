@@ -1,9 +1,11 @@
-import { MapPin, Calendar, User, ArrowUpCircle } from 'lucide-react';
+import { MapPin, Calendar, User, ArrowUpCircle, ImageOff } from 'lucide-react';
 import api from '../services/api';
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 
 const IssueCard = ({ issue }) => {
   const [upvotes, setUpvotes] = useState(issue.upvotes || 0);
+  const [imageError, setImageError] = useState(false);
 
   const handleUpvote = async () => {
     try {
@@ -24,13 +26,28 @@ const IssueCard = ({ issue }) => {
   };
 
   return (
-    <div className="card group">
-      <div className="relative overflow-hidden rounded-xl mb-4 h-48 bg-slate-100">
-        <img 
-          src={issue.image} 
-          alt={issue.title} 
-          className="w-full h-full object-cover transition-transform group-hover:scale-105"
-        />
+    <motion.div 
+      layout
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, scale: 0.9 }}
+      transition={{ duration: 0.3 }}
+      className="card group"
+    >
+      <div className="relative overflow-hidden rounded-xl mb-4 h-48 bg-slate-100 flex items-center justify-center">
+        {!imageError && issue.image ? (
+          <img 
+            src={issue.image} 
+            alt={issue.title} 
+            onError={() => setImageError(true)}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+        ) : (
+          <div className="flex flex-col items-center text-slate-400">
+            <ImageOff size={32} />
+            <span className="text-xs mt-2 font-medium">Image unavailable</span>
+          </div>
+        )}
         <div className={`absolute top-3 right-3 status-badge ${getStatusColor(issue.status)} shadow-sm`}>
           {issue.status}
         </div>
@@ -66,7 +83,7 @@ const IssueCard = ({ issue }) => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

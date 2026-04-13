@@ -5,6 +5,7 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import IssueCard from '../components/IssueCard';
 import { LayoutGrid, Map as MapIcon, RefreshCw, AlertCircle } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 // Fix for default marker icons in Leaflet
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
@@ -67,9 +68,21 @@ const Home = () => {
       </header>
 
       {loading ? (
-        <div className="flex flex-col items-center justify-center py-32 space-y-4">
-          <div className="w-12 h-12 border-4 border-primary-200 border-t-primary-600 rounded-full animate-spin"></div>
-          <p className="text-slate-500 font-medium">Fetching community reports...</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {[1, 2, 3, 4, 5, 6].map(i => (
+            <div key={i} className="card animate-pulse">
+              <div className="h-48 bg-slate-200 rounded-xl mb-4"></div>
+              <div className="space-y-3">
+                <div className="h-6 bg-slate-200 rounded w-3/4"></div>
+                <div className="h-4 bg-slate-200 rounded w-full"></div>
+                <div className="h-4 bg-slate-200 rounded w-5/6"></div>
+                <div className="pt-3 border-t border-slate-100 flex justify-between items-center mt-2">
+                  <div className="h-4 bg-slate-200 rounded w-1/3"></div>
+                  <div className="h-6 bg-slate-200 rounded w-12"></div>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       ) : issues.length === 0 ? (
         <div className="text-center py-32 bg-white rounded-3xl shadow-soft border border-slate-50 border-dashed">
@@ -80,11 +93,16 @@ const Home = () => {
           <p className="text-slate-500 mt-2">Check back later or report a new issue yourself.</p>
         </div>
       ) : viewMode === 'grid' ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {issues.map(issue => (
-            <IssueCard key={issue._id} issue={issue} />
-          ))}
-        </div>
+        <motion.div 
+          layout
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
+          <AnimatePresence>
+            {issues.map(issue => (
+              <IssueCard key={issue._id} issue={issue} />
+            ))}
+          </AnimatePresence>
+        </motion.div>
       ) : (
         <div className="h-[650px] rounded-3xl overflow-hidden shadow-soft border border-slate-100 z-0">
           <MapContainer center={[12.9716, 77.5946]} zoom={13} style={{ height: '100%', width: '100%' }}>
