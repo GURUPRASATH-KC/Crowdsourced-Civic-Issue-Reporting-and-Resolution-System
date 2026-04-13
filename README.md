@@ -90,6 +90,4 @@ npm run dev
 Contributions, issues, and feature requests are welcome!
 Feel free to check the [issues page](https://github.com/GURUPRASATH-KC/Crowdsourced-Civic-Issue-Reporting-and-Resolution-System/issues).
 
-## 📝 License
 
-This project is licensed under the MIT License.
