@@ -1,0 +1,26 @@
+{
+  "name": "civic-reporter-server",
+  "version": "1.0.0",
+  "description": "Backend for Civic Reporter application",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "promote": "node promoteAdmin.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cloudinary": "^2.9.0",
+    "cors": "^2.8.6",
+    "dotenv": "^16.6.1",
+    "express": "^4.22.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^8.23.0",
+    "multer": "^1.4.5-lts.1",
+    "nodemon": "^3.1.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
