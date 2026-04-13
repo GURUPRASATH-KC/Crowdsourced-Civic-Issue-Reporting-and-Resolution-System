@@ -13,7 +13,6 @@ export const AuthProvider = ({ children }) => {
     
     if (storedUser && token) {
       setUser(JSON.parse(storedUser));
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     }
     setLoading(false);
   }, []);
@@ -22,14 +21,12 @@ export const AuthProvider = ({ children }) => {
     setUser(userData);
     localStorage.setItem('civic_user', JSON.stringify(userData));
     localStorage.setItem('civic_token', token);
-    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
   };
 
   const logout = () => {
     setUser(null);
     localStorage.removeItem('civic_user');
     localStorage.removeItem('civic_token');
-    delete axios.defaults.headers.common['Authorization'];
   };
 
   return (

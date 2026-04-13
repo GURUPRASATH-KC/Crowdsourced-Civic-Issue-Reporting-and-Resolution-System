@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../services/api';
 import toast from 'react-hot-toast';
 import { 
   BarChart3, 
@@ -22,8 +22,8 @@ const AdminDashboard = () => {
     setLoading(true);
     try {
       const [issuesRes, statsRes] = await Promise.all([
-        axios.get('http://localhost:5000/api/issues'),
-        axios.get('http://localhost:5000/api/analytics')
+        api.get('/api/issues'),
+        api.get('/api/analytics')
       ]);
       setIssues(issuesRes.data);
       setStats(statsRes.data);
@@ -41,7 +41,7 @@ const AdminDashboard = () => {
   const handleStatusUpdate = async (id, status) => {
     setUpdating(id);
     try {
-      await axios.patch(`http://localhost:5000/api/issues/${id}/status`, { status });
+      await api.patch(`/api/issues/${id}/status`, { status });
       toast.success(`Status updated to ${status}`);
       fetchData(); // Refresh both stats and list
     } catch (err) {

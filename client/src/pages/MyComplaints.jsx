@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../services/api';
 import IssueCard from '../components/IssueCard';
 import { Filter, ClipboardList, RefreshCw } from 'lucide-react';
 
@@ -11,7 +11,7 @@ const MyComplaints = () => {
   const fetchMyIssues = async () => {
     setLoading(true);
     try {
-      const res = await axios.get('http://localhost:5000/api/issues/my');
+      const res = await api.get('/api/issues/my');
       setIssues(res.data);
     } catch (err) {
       console.error('Failed to fetch your reports');

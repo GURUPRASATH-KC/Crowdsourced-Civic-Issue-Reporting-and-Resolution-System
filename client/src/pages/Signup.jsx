@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import { User, Mail, Lock, UserPlus, ArrowRight } from 'lucide-react';
 
@@ -19,7 +19,7 @@ const Signup = () => {
     setLoading(true);
 
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/signup', formData);
+      const res = await api.post('/api/auth/signup', formData);
       login(res.data.user, res.data.token);
       navigate('/');
     } catch (err) {

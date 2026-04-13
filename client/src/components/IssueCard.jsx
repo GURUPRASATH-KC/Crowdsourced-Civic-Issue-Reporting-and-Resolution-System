@@ -1,5 +1,5 @@
 import { MapPin, Calendar, User, ArrowUpCircle } from 'lucide-react';
-import axios from 'axios';
+import api from '../services/api';
 import { useState } from 'react';
 
 const IssueCard = ({ issue }) => {
@@ -7,7 +7,7 @@ const IssueCard = ({ issue }) => {
 
   const handleUpvote = async () => {
     try {
-      const res = await axios.post(`http://localhost:5000/api/issues/${issue._id}/upvote`);
+      const res = await api.post(`/api/issues/${issue._id}/upvote`);
       setUpvotes(res.data.upvotes);
     } catch (err) {
       console.error('Upvote failed');

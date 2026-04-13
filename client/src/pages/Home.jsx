@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../services/api';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -27,7 +27,7 @@ const Home = () => {
   const fetchIssues = async () => {
     setLoading(true);
     try {
-      const res = await axios.get('http://localhost:5000/api/issues');
+      const res = await api.get('/api/issues');
       setIssues(res.data);
     } catch (err) {
       console.error('Failed to fetch issues');

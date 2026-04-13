@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../services/api';
 import toast from 'react-hot-toast';
 import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
 import { Camera, MapPin, Send, Loader2, Info } from 'lucide-react';
@@ -85,7 +85,7 @@ const ReportIssue = () => {
     setSubmitting(true);
 
     try {
-      await axios.post('http://localhost:5000/api/issues', {
+      await api.post('/api/issues', {
         ...formData,
         image: imagePreview
       });
